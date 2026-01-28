@@ -1,0 +1,68 @@
+# action.yml
+name: 'INSPECTA-Logika-CI-Action'
+description: 'Conduct Logika analysis on a SySML (v2) model'
+inputs:
+  sysmlv2-files:  # id of input
+    description: 'JSON-formatted list of SySML model files to include in the analysis.'
+    required: true
+  exclude-sourcepaths:
+    description: 'JSON-formatted list of sourcepath URI segments to exclude from the analysis.'
+    default: '[]'
+  feedback:
+    description: 'Feedback output directory (expects a path).'
+    required: false
+    default: '.'
+  parseable-messages:
+    description: 'Print parseable file messages.'
+    required: false
+    default: 'false'
+  approximation-options:
+    description: 'Approximation options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  control-options:
+    description: 'Control options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  logging-options:
+    description: 'Logging options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  optimization-options:
+    description: 'Optimization options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  path-splitting-options:
+    description: 'Path-splitting options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  rewriting-options:
+    description: 'Rewriting options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+  smt2-options:
+    description: 'SMT2 solver options in JSON-formatted dictionary.  See README.md for detailed description.'
+    required: 'false'
+    default: ''
+outputs:
+  timestamp:
+    description: 'The date/time that the analysis was completed'
+  status:
+    description: 'Summary of analysis completion status'
+  status-messages: 
+    description: 'Description of analysis completion status'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.sysmlv2-files }}
+    - ${{ inputs.exclude-sourcepaths }}
+    - ${{ inputs.feedback }}
+    - ${{ inputs.parseable-messages }}
+    - ${{ inputs.approximation-options }}
+    - ${{ inputs.control-options }}
+    - ${{ inputs.logging-options }}
+    - ${{ inputs.optimization-options }}
+    - ${{ inputs.path-splitting-options }}
+    - ${{ inputs.rewriting-options }}
+    - ${{ inputs.smt2-options }}
