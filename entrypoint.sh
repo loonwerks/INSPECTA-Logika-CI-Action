@@ -29,8 +29,8 @@ if [[ -n $3 ]]; then
 fi
 
 if [[ -n $4 ]]; then
-	if [ $4 = "true" ]; then
-		runCommand+=$(--parseable-messages)
+	if [ "XX $4" = "XX true" ]; then
+		runCommand+=(--parseable-messages)
 	else
 		echo "Caution: non-parseable output"
 	fi
