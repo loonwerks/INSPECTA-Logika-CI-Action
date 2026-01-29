@@ -24,10 +24,6 @@ if [[ -n $2 ]]; then
 	fi
 fi
 
-if [[ -n $3 ]]; then
-	runCommand+=(--feedback $3)
-fi
-
 if [[ -n $4 ]]; then
 	if [ "XX $4" = "XX true" ]; then
 		runCommand+=(--parseable-messages)
@@ -259,13 +255,20 @@ fi
 # SysMLv2 files
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
+outputFile = "logika.stdout"
+if [[ -n $3 ]]; then
+	outputFile=$3
+fi
+runCommand+=(">> ${outputFile}")
+
 echo "run command: ${runCommand[@]}"
 
 "${runCommand[@]}"
+EXIT_CODE=$?
 
-echo "timestamp=$(jq .date $4)" >> $GITHUB_OUTPUT
-echo "status=$(jq .status $4)" >> $GITHUB_OUTPUT
-echo "status-messages=$(jq .statusMessages $4)" >> $GITHUB_OUTPUT
+echo "timestamp=$(date)" >> $GITHUB_OUTPUT
+echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
+echo "status-messages=$(cat ${outputFile})" >> $GITHUB_OUTPUT
 
 exitStatus=1
 analysisStatus=$(jq .status $4)
