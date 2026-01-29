@@ -59,11 +59,11 @@ fi
 # Control options
 if [[ -n $6 ]]; then
 	interprocedural=$(echo $6 | jq '.["interprocedural"]')
-	if [ "XX $interprocedural" = 'XX "true"' ]; then
+	if [ "XX $interprocedural" = "XX true" ]; then
 		runCommand+=(--interprocedural)
 	fi
 	interproceduralContracts=$(echo $6 | jq '.["interprocedural-contracts"]')
-	if [ "XX $interproceduralContracts" = 'XX "true"' ]; then
+	if [ "XX $interproceduralContracts" = "XX true" ]; then
 		runCommand+=(--interprocedural-contracts)
 	fi
 	lineFocus=$(echo $6 | jq '.["line"]')
@@ -79,15 +79,15 @@ if [[ -n $6 ]]; then
 		runCommand+=(--recursive-bound $recursiveBound)
 	fi
 	patternInexhaustive=$(echo $6 | jq '.["pattern-inexhaustive"]')
-	if [ "XX $patternInexhaustive" = 'XX "true"' ]; then
+	if [ "XX $patternInexhaustive" = "XX true" ]; then
 		runCommand+=(--pattern-inexhaustive)
 	fi
 	pureProofFun=$(echo $6 | jq '.["pure-proof-fun"]')
-	if [ "XX $pureProofFun" = 'XX "true"' ]; then
+	if [ "XX $pureProofFun" = "XX true" ]; then
 		runCommand+=(--pure-proof-fun)
 	fi
 	satAssume=$(echo $6 | jq '.["sat"]')
-	if [ "XX $satAssume" = 'XX "true"' ]; then
+	if [ "XX $satAssume" = "XX true" ]; then
 		runCommand+=(--sat)
 	fi
 	skipMethods=$(echo $6 | jq '.["skip-methods"] | join(",")')
@@ -103,39 +103,39 @@ fi
 # Logging options
 if [[ -n $7 ]]; then
 	logPC=$(echo $7 | jq '.["log-pc"]')
-	if [ "XX $logPC" = 'XX "true"' ]; then
+	if [ "XX $logPC" = "XX true" ]; then
 		runCommand+=(--log-pc)
 	fi
 	logPCLines=$(echo $7 | jq '.["log-pc-lines"]')
-	if [ "XX $logPCLines" = 'XX "true"' ]; then
+	if [ "XX $logPCLines" = "XX true" ]; then
 		runCommand+=(--log-pc-lines)
 	fi
 	logRawPC=$(echo $7 | jq '.["log-raw-pc"]')
-	if [ "XX $logRawPC" = 'XX "true"' ]; then
+	if [ "XX $logRawPC" = "XX true" ]; then
 		runCommand+=(--log-raw-pc)
 	fi
 	logVC=$(echo $7 | jq '.["log-vc"]')
-	if [ "XX $logVC" = 'XX "true"' ]; then
+	if [ "XX $logVC" = "XX true" ]; then
 		runCommand+=(--log-vc)
 	fi
 	logVCDir=$(echo $7 | jq '.["log-vc-dir"]')
-	if [ "XX $logVCDir" = 'XX "true"' ]; then
+	if [ "XX $logVCDir" = "XX true" ]; then
 		runCommand+=(--log-vc-dir)
 	fi
 	logDetailedInfo=$(echo $7 | jq '.["log-detailed-info"]')
-	if [ "XX $logDetailedInfo" = 'XX "true"' ]; then
+	if [ "XX $logDetailedInfo" = "XX true" ]; then
 		runCommand+=(--log-detailed-info)
 	fi
 	logRewriteAt=$(echo $7 | jq '.["log-rewrite-at"]')
-	if [ "XX $logRewriteAt" = 'XX "true"' ]; then
+	if [ "XX $logRewriteAt" = "XX true" ]; then
 		runCommand+=(--log-rewrite-at)
 	fi
 	logStats=$(echo $7 | jq '.["stats"]')
-	if [ "XX $logPC" = 'XX "true"' ]; then
+	if [ "XX $logPC" = "XX true" ]; then
 		runCommand+=(--stats)
 	fi
 	logStats=$(echo $7 | jq '.["stats"]')
-	if [ "XX $logPC" = 'XX "true"' ]; then
+	if [ "XX $logPC" = "XX true" ]; then
 		runCommand+=(--stats)
 	fi
 fi
@@ -143,7 +143,7 @@ fi
 # Optimization options
 if [[ -n $8 ]]; then
 	parallelizationEnable=$(echo $8 | jq '.["parallelization-enable"]')
-	if [ "XX $parallelizationEnable" = 'XX "true"' ]; then
+	if [ "XX $parallelizationEnable" = "XX true" ]; then
 		runCommand+=(--par)
 		parallelizationCorePercentage=$(echo $8 | jq '.["parallelization-core-percentage"]')
 		if [[ -n $parallelizationCorePercentage ]]; then
@@ -151,11 +151,11 @@ if [[ -n $8 ]]; then
 		fi
 	fi
 	parallelizationBranch=$(echo $8 | jq '.["parallelization-branch"]')
-	if [ "XX $parallelizationBranch" = 'XX "true"' ]; then
+	if [ "XX $parallelizationBranch" = "XX true" ]; then
 		runCommand+=(--par-branch)
 	fi
 	parallelizationBranchReturn=$(echo $8 | jq '.["parallelization-branch-return"]')
-	if [ "XX $parallelizationBranchReturn" = 'XX "true"' ]; then
+	if [ "XX $parallelizationBranchReturn" = "XX true" ]; then
 		runCommand+=(--par-branch-return)
 	fi
 	parallelizationBranchPredNum=$(echo $8 | jq '.["parallelization-branch-pred-num"]')
@@ -167,7 +167,7 @@ if [[ -n $8 ]]; then
 		runCommand+=(--par-branch-pred-complexity $parallelizationBranchPredComplexity)
 	fi
 	parallelizationRewriting=$(echo $8 | jq '.["parallelization-rw"]')
-	if [ "XX $parallelizationRewriting" = 'XX "true"' ]; then
+	if [ "XX $parallelizationRewriting" = "XX true" ]; then
 		runCommand+=(--par-rw)
 	fi
 fi
@@ -175,23 +175,23 @@ fi
 # Path-splitting options
 if [[ -n $9 ]]; then
 	dontSplitPfq=$(echo $9 | jq '.["dont-split-pfq"]')
-	if [ "XX $dontSplitPfq" = 'XX "true"' ]; then
+	if [ "XX $dontSplitPfq" = "XX true" ]; then
 		runCommand+=(--dont-split-pfq)
 	fi
 	splitAll=$(echo $9 | jq '.["split-all"]')
-	if [ "XX $splitAll" = 'XX "true"' ]; then
+	if [ "XX $splitAll" = "XX true" ]; then
 		runCommand+=(--split-all)
 	fi
 	splitContract=$(echo $9 | jq '.["split-contract"]')
-	if [ "XX $splitContract" = 'XX "true"' ]; then
+	if [ "XX $splitContract" = "XX true" ]; then
 		runCommand+=(--split-contract)
 	fi
 	splitIf=$(echo $9 | jq '.["split-if"]')
-	if [ "XX $splitIf" = 'XX "true"' ]; then
+	if [ "XX $splitIf" = "XX true" ]; then
 		runCommand+=(--split-if)
 	fi
 	splitMatch=$(echo $9 | jq '.["split-match"]')
-	if [ "XX $splitMatch" = 'XX "true"' ]; then
+	if [ "XX $splitMatch" = "XX true" ]; then
 		runCommand+=(--split-match)
 	fi
 fi
@@ -207,7 +207,7 @@ if [[ -n ${10} ]]; then
 		runCommand+=(--rw-trace)
 	fi
 	rwEvalTrace=$(echo ${10} | jq '.["rewriting-eval-trace"]')
-	if [ "XX $rwEvalTrace" = 'XX "true"' ]; then
+	if [ "XX $rwEvalTrace" = "XX true" ]; then
 		runCommand+=(--rw-eval-trace)
 	fi
 fi
@@ -215,11 +215,11 @@ fi
 # SMT2 options
 if [[ -n ${11} ]]; then
 	elideEncoding=$(echo ${11} | jq '.["elide-encoding"]')
-	if [ "XX $elideEncoding" = 'XX "true"' ]; then
+	if [ "XX $elideEncoding" = "XX true" ]; then
 		runCommand+=(--elide-encoding)
 	fi
 	rawInscription=$(echo ${11} | jq '.["raw-inscription"]')
-	if [ "XX $rawInscription" = 'XX "true"' ]; then
+	if [ "XX $rawInscription" = "XX true" ]; then
 		runCommand+=(--raw-inscription)
 	fi
 	rlimit=$(echo ${11} | jq '.["rlimit"]')
@@ -227,11 +227,11 @@ if [[ -n ${11} ]]; then
 		runCommand+=(--rlimit $rlimit)
 	fi
 	smt2Seq=$(echo ${11} | jq '.["seq"]')
-	if [ "XX $smt2Seq" = 'XX "true"' ]; then
+	if [ "XX $smt2Seq" = "XX true" ]; then
 		runCommand+=(--smt2-seq)
 	fi
 	simplify=$(echo ${11} | jq '.["simplify"]')
-	if [ "XX $simplify" = 'XX "true"' ]; then
+	if [ "XX $simplify" = "XX true" ]; then
 		runCommand+=(--simplify)
 	fi
 	solverSat=$(echo ${11} | jq '.["solver-sat"]')
@@ -251,7 +251,7 @@ if [[ -n ${11} ]]; then
 		runCommand+=(--timeout $timeout)
 	fi
 	searchPC=$(echo ${11} | jq '.["search-pc"]')
-	if [ "XX $searchPC" = 'XX "true"' ]; then
+	if [ "XX $searchPC" = "XX true" ]; then
 		runCommand+=(--search-pc)
 	fi
 fi
