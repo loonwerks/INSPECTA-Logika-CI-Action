@@ -10,8 +10,8 @@ echo "control-options $6"
 echo "logging-options $7"
 echo "optimization-options $8"
 echo "path-splitting-options $9"
-echo "rewriting-options $10"
-echo "smt2-options $11"
+echo "rewriting-options ${10}"
+echo "smt2-options ${11}"
 
 AADL_DIR=${GITHUB_WORKSPACE}/$1
 
@@ -193,60 +193,60 @@ if [[ -n $9 ]]; then
 fi
 
 # Rewriting options
-if [[ -n $10 ]]; then
-	rwMax=$(echo $10 | jq '.["rewriting-max"]')
+if [[ -n ${10} ]]; then
+	rwMax=$(echo ${10} | jq '.["rewriting-max"]')
 	if [[ -n $rwMax ]]; then
 		runCommand+=(--rw-max $rwMax)
 	fi
-	rwTrace=$(echo $10 | jq '.["rewriting-trace"]')
+	rwTrace=$(echo ${10} | jq '.["rewriting-trace"]')
 	if [ "XX $rwTrace" = 'XX "true"' ]; then
 		runCommand+=(--rw-trace)
 	fi
-	rwEvalTrace=$(echo $10 | jq '.["rewriting-eval-trace"]')
+	rwEvalTrace=$(echo ${10} | jq '.["rewriting-eval-trace"]')
 	if [ "XX $rwEvalTrace" = 'XX "true"' ]; then
 		runCommand+=(--rw-eval-trace)
 	fi
 fi
 
 # SMT2 options
-if [[ -n $11 ]]; then
-	elideEncoding=$(echo $11 | jq '.["elide-encoding"]')
+if [[ -n ${11} ]]; then
+	elideEncoding=$(echo ${11} | jq '.["elide-encoding"]')
 	if [ "XX $elideEncoding" = 'XX "true"' ]; then
 		runCommand+=(--elide-encoding)
 	fi
-	rawInscription=$(echo $11 | jq '.["raw-inscription"]')
+	rawInscription=$(echo ${11} | jq '.["raw-inscription"]')
 	if [ "XX $rawInscription" = 'XX "true"' ]; then
 		runCommand+=(--raw-inscription)
 	fi
-	rlimit=$(echo $11 | jq '.["rlimit"]')
+	rlimit=$(echo ${11} | jq '.["rlimit"]')
 	if [[ -n $rlimit ]]; then
 		runCommand+=(--rlimit $rlimit)
 	fi
-	smt2Seq=$(echo $11 | jq '.["seq"]')
+	smt2Seq=$(echo ${11} | jq '.["seq"]')
 	if [ "XX $smt2Seq" = 'XX "true"' ]; then
 		runCommand+=(--smt2-seq)
 	fi
-	simplify=$(echo $11 | jq '.["simplify"]')
+	simplify=$(echo ${11} | jq '.["simplify"]')
 	if [ "XX $simplify" = 'XX "true"' ]; then
 		runCommand+=(--simplify)
 	fi
-	solverSat=$(echo $11 | jq '.["solver-sat"]')
+	solverSat=$(echo ${11} | jq '.["solver-sat"]')
 	if [[ -n $solverSat ]]; then
 		runCommand+=(--solver-sat $solverSat)
 	fi
-	solverValid=$(echo $11 | jq '.["solver-valid"]')
+	solverValid=$(echo ${11} | jq '.["solver-valid"]')
 	if [[ -n $solverValid ]]; then
 		runCommand+=(--solver-valid $solverValid)
 	fi
-	satTimeout=$(echo $11 | jq '.["sat-timeout"]')
+	satTimeout=$(echo ${11} | jq '.["sat-timeout"]')
 	if [[ -n $satTimeout ]]; then
 		runCommand+=(--sat-timeout $satTimeout)
 	fi
-	timeout=$(echo $11 | jq '.["timeout"]')
+	timeout=$(echo ${11} | jq '.["timeout"]')
 	if [[ -n $timeout ]]; then
 		runCommand+=(--timeout $timeout)
 	fi
-	searchPC=$(echo $11 | jq '.["search-pc"]')
+	searchPC=$(echo ${11} | jq '.["search-pc"]')
 	if [ "XX $searchPC" = 'XX "true"' ]; then
 		runCommand+=(--search-pc)
 	fi
@@ -254,6 +254,8 @@ fi
 
 # SysMLv2 files
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
+
+echo "run command: ${runCommand}"
 
 # Probably don't need xvfb-run
 xvfb-run -e /dev/stdout -s "-screen 0 1280x1024x24 -ac -nolisten tcp -nolisten unix" "${runCommand[@]}"
