@@ -11,7 +11,7 @@ inputs:
   feedback:
     description: 'Feedback output directory (expects a path).'
     required: false
-    default: '.'
+    default: ''
   parseable-messages:
     description: 'Print parseable file messages.'
     required: false
