@@ -18,8 +18,10 @@ AADL_DIR=${GITHUB_WORKSPACE}/$1
 runCommand=(/Sireum/bin/sireum hamr sysml logika)
 
 if [[ -n $2 ]]; then
-	excludePaths=$(echo $2 | jq -r 'join(",")') 
-	runCommand+=(--exclude $excludePaths)
+	excludePaths=$(echo $2 | jq -r 'join(",")')
+	if [[ -n $excludePaths ]]; then
+		runCommand+=(--exclude $excludePaths)
+	fi
 fi
 
 if [[ -n $3 ]]; then
