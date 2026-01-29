@@ -255,14 +255,9 @@ fi
 # SysMLv2 files
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
-echo "run command: ${runCommand}"
+echo "run command: ${runCommand[@]}"
 
-# Probably don't need xvfb-run
-xvfb-run -e /dev/stdout -s "-screen 0 1280x1024x24 -ac -nolisten tcp -nolisten unix" "${runCommand[@]}"
-
-git config --global --add safe.directory ${GITHUB_WORKSPACE}
-pushd ${AADL_DIR} && git checkout [Cc][Aa][Ss][Ee]_[Ss]cheduling.aadl && popd
-echo "Restored CASE_Scheduling.aadl"
+"${runCommand[@]}"
 
 echo "timestamp=$(jq .date $4)" >> $GITHUB_OUTPUT
 echo "status=$(jq .status $4)" >> $GITHUB_OUTPUT
