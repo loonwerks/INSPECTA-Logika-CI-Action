@@ -255,14 +255,14 @@ fi
 # SysMLv2 files
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
-outputFile = "logika.out"
+outputFile="logika.out"
 if [[ -n $3 ]]; then
 	outputFile=$3
 fi
 
 echo "run command: ${runCommand[@]}" 
 
-"${runCommand[@]}" >> $outputFile
+"${runCommand[@]}" >> "$outputFile"
 EXIT_CODE=$?
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
