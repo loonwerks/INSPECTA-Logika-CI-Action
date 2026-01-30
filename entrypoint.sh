@@ -270,4 +270,8 @@ echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
 echo "status-messages=$(cat ${outputFile})" >> $GITHUB_OUTPUT
 
 echo "exit code: $EXIT_CODE"
-exit $EXIT_CODE
+if [ "XX $EXIT_CODE" = "XX 0" ]; then
+	exit 0
+else
+	exit 1
+fi
