@@ -269,14 +269,5 @@ echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
 echo "status-messages=$(cat ${outputFile})" >> $GITHUB_OUTPUT
 
-exitStatus=1
-analysisStatus=$(jq .status $4)
-echo "analysisStatus: $analysisStatus"
-if [ "XX $analysisStatus" = 'XX "Analysis Completed"' ]; then
-	claimsTrue=$(jq "[.results[] | .status] | all" $4)
-	if [ "XX $claimsTrue" = 'XX "true"' ]; then
-		exitStatus=0
-	fi
-fi
-echo "exitStatus: $exitStatus"
-exit $exitStatus
+echo "exit code: $EXIT_CODE"
+exit $EXIT_CODE
