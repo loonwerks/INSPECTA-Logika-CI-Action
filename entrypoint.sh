@@ -259,11 +259,10 @@ outputFile = "logika.stdout"
 if [[ -n $3 ]]; then
 	outputFile=$3
 fi
-runCommand+=(">> ${outputFile}")
 
-echo "run command: ${runCommand[@]}"
+echo "run command: ${runCommand[@]}" 
 
-"${runCommand[@]}"
+"${runCommand[@]}" >> $outputFile
 EXIT_CODE=$?
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
