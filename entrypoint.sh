@@ -86,11 +86,11 @@ if [[ -n $6 ]]; then
 	if [ "XX $satAssume" = "XX true" ]; then
 		runCommand+=(--sat)
 	fi
-	skipMethods=$(echo $6 | jq '.["skip-methods"] | join(",")')
+	skipMethods=$(echo $6 | jq -r '.["skip-methods"] | join(",")')
 	if [[ -n $skipMethods ]]; then
 		runCommand+=(--skip-methods $skipMethods)
 	fi
-	skipTypes=$(echo $6 | jq '.["skip-types"] | join(",")')
+	skipTypes=$(echo $6 | jq -r '.["skip-types"] | join(",")')
 	if [[ -n $skipTypes ]]; then
 		runCommand+=(--skip-types $skipTypes)
 	fi
