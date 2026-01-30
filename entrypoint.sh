@@ -262,7 +262,7 @@ fi
 
 echo "run command: ${runCommand[@]}" 
 
-"${runCommand[@]}" >> $outputFile
+"${runCommand[@]}" > ${outputFile}
 EXIT_CODE=$?
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
