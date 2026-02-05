@@ -5,6 +5,9 @@ inputs:
   sysmlv2-files:  # id of input
     description: 'JSON-formatted list of SySML model files to include in the analysis.'
     required: true
+  sourcepaths:
+    description: 'JSON-formatted list of Source paths of SysML v2 .sysml files (expects path strings.'
+    default: '[]'
   exclude-sourcepaths:
     description: 'JSON-formatted list of sourcepath URI segments to exclude from the analysis.'
     default: '[]'

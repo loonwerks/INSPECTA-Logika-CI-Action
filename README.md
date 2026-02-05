@@ -8,9 +8,13 @@ INSPECTA CI action to conduct Logika analysis on a SySML (v2) model
 
 **Required** JSON-formatted list of SySML model files to include in the analysis. 
 
+### `sourcepaths`
+
+JSON-formatted list of Source paths of SysML v2 .sysml files (expects path strings.  Default: '[]'.
+
 ### `exclude-sourcepaths`
 
-JSON-formatted list of sourcepath URI segments to exclude from the analysis.
+JSON-formatted list of sourcepath URI segments to exclude from the analysis.  Default: '[]'.
 
 ### `feedback`
 
