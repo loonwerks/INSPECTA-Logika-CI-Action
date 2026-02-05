@@ -22,7 +22,7 @@ AADL_DIR=${GITHUB_WORKSPACE}/$1
 runCommand=(/Sireum/bin/sireum hamr sysml logika)
 
 if [[ -n $2 ]]; then
-	sourcePaths=$(echo $2 | jq -r 'join(" ")')
+	sourcePaths=$(echo $2 | jq -r 'join(":")')
 	if [[ -n $sourcePaths ]]; then
 		runCommand+=(--sourcepath $sourcePaths)
 	fi
