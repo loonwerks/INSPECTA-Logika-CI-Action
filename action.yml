@@ -59,6 +59,7 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.sysmlv2-files }}
+    - ${{ inputs.sourcepaths }}
     - ${{ inputs.exclude-sourcepaths }}
     - ${{ inputs.feedback }}
     - ${{ inputs.parseable-messages }}
