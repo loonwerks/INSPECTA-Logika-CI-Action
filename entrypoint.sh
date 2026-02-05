@@ -15,6 +15,9 @@ echo "smt2-options ${11}"
 
 AADL_DIR=${GITHUB_WORKSPACE}/$1
 
+# Capture the version of Sireum used for this run
+/Sireum/bin/sireum --version
+
 runCommand=(/Sireum/bin/sireum hamr sysml logika)
 
 if [[ -n $2 ]]; then
