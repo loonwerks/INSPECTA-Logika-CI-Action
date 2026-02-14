@@ -291,6 +291,8 @@ if [[ -n $4 ]]; then
 			&& jq -s 'add' ${logikaFeedback} ${fbTemp} > "${accumTmpFile}" \
 			&& mv ${accumTmpFile} ${logikaFeedback} &&  rm ${fbTemp}
 	done
+	# Temp files are readable only by user by default; make readable by future steps
+	chmod +r $logikaFeedback
 fi
 
 echo "exit code: $EXIT_CODE"
