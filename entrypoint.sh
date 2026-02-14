@@ -35,6 +35,10 @@ if [[ -n $3 ]]; then
 	fi
 fi
 
+if [[ -n $4 ]]; then
+	runCommand+=(--feedback $4)
+fi
+
 if [[ -n $5 ]]; then
 	if [ "XX $5" = "XX true" ]; then
 		runCommand+=(--parseable-messages)
@@ -267,18 +271,28 @@ fi
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
 outputFile="logika.out"
-if [[ -n $4 ]]; then
-	outputFile=$4
-fi
 
 echo "run command: ${runCommand[@]}" 
 
-"${runCommand[@]}" >> "$outputFile"
+"${runCommand[@]}" >> "$outputFile" 2>&1
 EXIT_CODE=$?
+cat $outputFile
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
 echo "status-messages=$(cat ${outputFile} | jq -R -s '.')" >> $GITHUB_OUTPUT
+
+if [[ -n $4 ]]; then
+	logikaFeedback=logika-feedback.json
+	echo "{ }" > ${logikaFeedback}
+	for fbFile in $(ls -1 $4); do
+		fbTemp=$(mktemp)
+		accumTmpFile=$(mktemp)
+		jq "{\"$(basename ${fbFile})\" : .}" $4/${fbFile} > "${fbTemp}" \
+			&& jq -s 'add' ${logikaFeedback} ${fbTemp} > "${accumTmpFile}" \
+			&& mv ${accumTmpFile} ${logikaFeedback} &&  rm ${fbTemp}
+	done
+fi
 
 echo "exit code: $EXIT_CODE"
 if [ "XX $EXIT_CODE" = "XX 0" ]; then
