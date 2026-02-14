@@ -280,7 +280,6 @@ cat $outputFile
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
-echo "status-messages=$(cat ${outputFile} | jq -R -s '.')" >> $GITHUB_OUTPUT
 
 if [[ -n $4 ]]; then
 	logikaFeedback="$4.json"
