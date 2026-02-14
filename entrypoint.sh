@@ -283,7 +283,7 @@ echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
 echo "status-messages=$(cat ${outputFile} | jq -R -s '.')" >> $GITHUB_OUTPUT
 
 if [[ -n $4 ]]; then
-	logikaFeedback=logika-feedback.json
+	logikaFeedback="$4.json"
 	echo "{ }" > ${logikaFeedback}
 	for fbFile in $(ls -1 $4); do
 		fbTemp=$(mktemp)
