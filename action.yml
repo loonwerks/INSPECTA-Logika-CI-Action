@@ -4,9 +4,11 @@ description: 'Conduct Logika analysis on a SySML (v2) model'
 inputs:
   sysmlv2-files:  # id of input
     description: 'JSON-formatted list of SySML model files to include in the analysis.'
-    required: true
+    required: false
+    default: '[]'
   sourcepaths:
     description: 'JSON-formatted list of Source paths of SysML v2 .sysml files (expects path strings.'
+    required: false
     default: '[]'
   exclude-sourcepaths:
     description: 'JSON-formatted list of sourcepath URI segments to exclude from the analysis.'
