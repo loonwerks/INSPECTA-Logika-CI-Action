@@ -6,13 +6,14 @@ echo "sourcepaths: $2"
 echo "exclude-sourcepaths: $3"
 echo "feedback: $4"
 echo "parseable-messages: $5"
-echo "approximation-options $6"
-echo "control-options $7"
-echo "logging-options $8"
-echo "optimization-options $9"
-echo "path-splitting-options ${10}"
-echo "rewriting-options ${11}"
-echo "smt2-options ${12}"
+echo "approximation-options: $6"
+echo "control-options: $7"
+echo "logging-options: $8"
+echo "optimization-options: $9"
+echo "path-splitting-options: ${10}"
+echo "rewriting-options: ${11}"
+echo "smt2-options: ${12}"
+echo "report-filename: ${13}"
 
 AADL_DIR=${GITHUB_WORKSPACE}/$1
 
@@ -281,6 +282,12 @@ cat $outputFile
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
 
+reportFile="logika-report.json"
+if [[ -n ${13} ]]; then
+	reportFile=${13}
+fi
+echo "{ }" > $reportFile
+
 if [[ -n $4 ]]; then
 	logikaFeedback="$4.json"
 	echo "{ }" > ${logikaFeedback}
@@ -291,9 +298,36 @@ if [[ -n $4 ]]; then
 			&& jq -s 'add' ${logikaFeedback} ${fbTemp} > "${accumTmpFile}" \
 			&& mv ${accumTmpFile} ${logikaFeedback} &&  rm ${fbTemp}
 	done
+
+	fbTemp=$(mktemp)
+	accumTmpFile=$(mktemp)
+	jq '{ "feedback" : .}' ${logikaFeedback} > "${fbTemp}" \
+		&& jq -s 'add' ${reportFile} ${fbTemp} > ${accumTmpFile} \
+		&& mv ${accumTmpFile} ${reportFile}
+
 	# Temp files are readable only by user by default; make readable by future steps
 	chmod +r $logikaFeedback
 fi
+
+if [[ -d $GITHUB_WORKSPACE/integration_constraints ]]; then
+	icReportFile=$(mktemp)
+	echo "{ }" > $icReportFile
+	for constraintFile in $(find $GITHUB_WORKSPACE/integration_constraints -name "*.json"); do
+		cfTemp=$(mktemp)
+		accumTmpFile=$(mktemp)
+		jq "{ \"${constraintFile}\" : .}" ${constraintFile} > "${cfTemp}" \
+			&& jq -s 'add' ${icReportFile} ${cfTemp} > ${accumTmpFile} \
+			&& mv ${accumTmpFile} ${icReportFile}
+	done
+	icTemp=$(mktemp)
+	accumTmpFile=$(mktemp)
+	jq '{ "integration_constraints" : .}' ${icReportFile} > "${icTemp}" \
+		&& jq -s 'add' ${reportFile} ${icTemp} > ${accumTmpFile} \
+		&& mv ${accumTmpFile} ${reportFile}
+fi
+
+# Temp files are readable only by user by default; make readable by future steps
+chmod +r $reportFile
 
 echo "exit code: $EXIT_CODE"
 if [ "XX $EXIT_CODE" = "XX 0" ]; then

@@ -49,6 +49,10 @@ inputs:
     description: 'SMT2 solver options in JSON-formatted dictionary.  See README.md for detailed description.'
     required: 'false'
     default: ''
+  report-filename:
+    description: 'The name of the file into which to write the JSON-formatted Logika analysis report.'
+    required: 'false'
+    default: 'logkia-report.json'
 outputs:
   timestamp:
     description: 'The date/time that the analysis was completed'
