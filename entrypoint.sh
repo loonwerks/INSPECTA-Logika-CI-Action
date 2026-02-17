@@ -278,6 +278,7 @@ echo "run command: ${runCommand[@]}"
 "${runCommand[@]}" >> "$outputFile" 2>&1
 EXIT_CODE=$?
 cat $outputFile
+chmod +r $outputFile
 
 echo "timestamp=$(date)" >> $GITHUB_OUTPUT
 echo "status=${EXIT_CODE}" >> $GITHUB_OUTPUT
