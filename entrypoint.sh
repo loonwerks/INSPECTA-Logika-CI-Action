@@ -327,8 +327,8 @@ if [[ -d $GITHUB_WORKSPACE/integration_constraints ]]; then
 		&& mv ${accumTmpFile} ${reportFile}
 fi
 
-# Temp files are readable only by user by default; make readable by future steps
-chmod +r $reportFile
+# Temp files are read/writeable only by user by default; make read/writeable by future steps
+chmod +rw $reportFile
 
 echo "exit code: $EXIT_CODE"
 if [ "XX $EXIT_CODE" = "XX 0" ]; then
