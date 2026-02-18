@@ -271,7 +271,7 @@ fi
 # SysMLv2 files
 runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
-outputFile="logika.out"
+outputFile=$(mktemp)
 
 startTimestamp=$(date)
 
@@ -289,7 +289,7 @@ reportFile="logika-report.json"
 if [[ -n ${13} ]]; then
 	reportFile=${13}
 fi
-echo "{ }" > $reportFile
+cat $outputFile | jq --raw-input . | jq --slurp '{"messages" : .}' > $reportFile
 
 if [[ -n $4 ]]; then
 	logikaFeedback="$4.json"
