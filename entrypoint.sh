@@ -273,6 +273,8 @@ runCommand+=($(echo $1 | jq -r 'join(" ")'))
 
 outputFile="logika.out"
 
+startTimestamp=$(date)
+
 echo "run command: ${runCommand[@]}" 
 
 "${runCommand[@]}" >> "$outputFile" 2>&1
@@ -326,6 +328,12 @@ if [[ -d $GITHUB_WORKSPACE/integration_constraints ]]; then
 		&& jq -s 'add' ${reportFile} ${icTemp} > ${accumTmpFile} \
 		&& mv ${accumTmpFile} ${reportFile}
 fi
+
+accumTmpFile=$(mktemp)
+jq --arg timestamp "${startTimestamp}" \
+   --arg exitcode ${EXIT_CODE} \
+   '. += $ARGS.named' ${reportFile} > "${accumTmpFile}" \
+   && mv ${accumTmpFile} ${reportFile}
 
 # Temp files are readable only by user by default; make readable by future steps
 chmod +r $reportFile
