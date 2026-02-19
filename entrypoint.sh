@@ -312,16 +312,19 @@ if [[ -n $4 ]]; then
 	chmod +r $logikaFeedback
 fi
 
-if [[ -d $GITHUB_WORKSPACE/integration_constraints ]]; then
-	icReportFile=$(mktemp)
-	echo "{ }" > $icReportFile
-	for constraintFile in $(find $GITHUB_WORKSPACE/integration_constraints -name "*.json"); do
-		cfTemp=$(mktemp)
-		accumTmpFile=$(mktemp)
-		jq "{ \"${constraintFile}\" : .}" ${constraintFile} > "${cfTemp}" \
-			&& jq -s 'add' ${icReportFile} ${cfTemp} > ${accumTmpFile} \
-			&& mv ${accumTmpFile} ${icReportFile}
-	done
+#if [[ -d $GITHUB_WORKSPACE/integration_constraints ]]; then
+#	icReportFile=$(mktemp)
+#	echo "{ }" > $icReportFile
+#	for constraintFile in $(find $GITHUB_WORKSPACE/integration_constraints -name "*.json"); do
+#		cfTemp=$(mktemp)
+#		accumTmpFile=$(mktemp)
+#		jq "{ \"${constraintFile}\" : .}" ${constraintFile} > "${cfTemp}" \
+#			&& jq -s 'add' ${icReportFile} ${cfTemp} > ${accumTmpFile} \
+#			&& mv ${accumTmpFile} ${icReportFile}
+#	done
+#	icTemp=$(mktemp)
+icReportFile=$GITHUB_WORKSPACE/system/.integration_constraint_report.json
+if [[ -f ${icReportFile} ]]; then
 	icTemp=$(mktemp)
 	accumTmpFile=$(mktemp)
 	jq '{ "integration_constraints" : .}' ${icReportFile} > "${icTemp}" \
