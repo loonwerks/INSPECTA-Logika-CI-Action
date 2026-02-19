@@ -17,6 +17,10 @@ inputs:
     description: 'Feedback output directory (expects a path).'
     required: false
     default: ''
+  integration-feedback-only:
+    description: 'Output only integration feedback.  Requires feedback also be specified.'
+    required: false
+    default: 'false'
   parseable-messages:
     description: 'Print parseable file messages.'
     required: false
@@ -66,6 +70,7 @@ runs:
     - ${{ inputs.sourcepaths }}
     - ${{ inputs.exclude-sourcepaths }}
     - ${{ inputs.feedback }}
+    - ${{ inputs.integration-feedback-only }}
     - ${{ inputs.parseable-messages }}
     - ${{ inputs.approximation-options }}
     - ${{ inputs.control-options }}

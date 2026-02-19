@@ -24,6 +24,10 @@ JSON-formatted list of sourcepath URI segments to exclude from the analysis.  De
 
 Feedback output directory (expects a path).  Default '.'.
 
+### `integration-feedback-only`
+
+Output only integration feedback.  Requires feedback also be specified.  Default: 'false'.
+
 ### `parseable-messages`
 
 Print parseable file messages.  Default 'false'.
