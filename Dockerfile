@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM ghcr.io/loonwerks/inspecta-ci-action-container:master-v4.20260219.f1d75683
+FROM ghcr.io/loonwerks/inspecta-ci-action-container:master-v4.20260810.80aad0c2
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
